@@ -1,5 +1,6 @@
 # Odrive_Gui
-Odrive gui
+Odrive gui install:
+
 install PyQt5 in Anaconda Prompt:
 
 `pip3 install pyqt5`
