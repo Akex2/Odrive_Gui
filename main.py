@@ -668,16 +668,14 @@ class odriveUI(QTabWidget):
 		self.getmotor_clicked()
 
 	def direction_clicked(self):
-		text = int(self.cbdirection.text())
+		text = int(self.cbdirection.currentText())
 		print(text)
-		"""
 		if self.rbaxis.isChecked() == True:
 			my_drive.axis0.motor.config.direction = text
 		else :
 			my_drive.axis1.motor.config.direction = text
 		time.sleep(0.5)
 		self.getmotor_clicked()
-		"""
 
 	def motor_type_clicked(self):
 		text = int(self.motor_type.currentIndex())
