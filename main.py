@@ -61,7 +61,7 @@ class odriveUI(QTabWidget):
 		self.pbsetcurrentstate.clicked.connect(self.requested_state_clicked)		
 		self.pbsetaxiserror0.clicked.connect(self.axiserror0_clicked)
 		#Connect set buton of Axis to def (config)
-		self.pbsetenablemotorpin.clicked.connect(self.setenablemotorpin_clicked)
+		#self.pbsetenablemotorpin.clicked.connect(self.setenablemotorpin_clicked)
 		self.pbsetenablestepdir.clicked.connect(self.setenablestepdir_clicked)
 		self.pbsetstartup_motor_calibration.clicked.connect(self.startup_motor_calibration_clicked)
 		self.pbsetstartup_encoder_index_search.clicked.connect(self.startup_encoder_index_search_clicked)
@@ -236,13 +236,13 @@ class odriveUI(QTabWidget):
 			self.lspin_up_current.setText(str(my_drive.axis0.config.spin_up_current))
 			self.lspin_up_acceleration.setText(str(my_drive.axis0.config.spin_up_acceleration))
 			self.lspin_up_target_vel.setText(str(my_drive.axis0.config.spin_up_target_vel))
-			self.lenablemotorpin.setText(str(my_drive.axis0.config.enable_motor_pin))
+			#self.lenablemotorpin.setText(str(my_drive.axis0.config.enable_motor_pin))
 			self.lenablestepdir.setText(str(my_drive.axis0.config.enable_step_dir))
 		else :
 			intcs = int(my_drive.axis1.current_state)
 			text= self.cbrequested_state.itemText(intcs)
 			self.lcurrentstate.setText(str((intcs))+(" ")+(text))
-			self.lenablemotorpin.setText(str(my_drive.axis1.config.enable_motor_pin))
+			#self.lenablemotorpin.setText(str(my_drive.axis1.config.enable_motor_pin))
 			self.lenablestepdir.setText(str(my_drive.axis1.config.enable_step_dir))
 			self.lerroraxis.setText(str(hex(my_drive.axis1.error)))
 			self.lgettemp.setText(str(my_drive.axis1.get_temp()))
@@ -515,6 +515,7 @@ class odriveUI(QTabWidget):
 		time.sleep(0.5)
 		self.getaxis_clicked()
 	#Set button off Axis tab(config)
+	"""
 	def setenablemotorpin_clicked(self):
 		text = int(self.cbenablemotorpin.currentIndex())
 		print(text)
@@ -524,6 +525,7 @@ class odriveUI(QTabWidget):
 			my_drive.axis1.config.enable_motor_pin = text
 		time.sleep(0.5)
 		self.getaxis_clicked()
+	"""
 
 	def setenablestepdir_clicked(self):
 		text = int(self.cbenablestepdir.currentIndex())
