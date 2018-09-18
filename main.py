@@ -34,7 +34,10 @@ class odriveUI(QTabWidget):
 		super(odriveUI,self).__init__()
 		loadUi('odriveUI.ui',self)
 		self.setWindowTitle('Odrive Configurator PyQt5 Gui')
-		self.pushButton.clicked.connect(self.on_pushButton_clicked)
+		self.pbsave.clicked.connect(self.pbsave_clicked)
+		self.pbreboot.clicked.connect(self.pbreboot_clicked)
+		#Connect push buton get all parameter to def
+		self.pbgetall.clicked.connect(self.getall_clicked)
 		#Connect push buton get axis parameter to def
 		self.pbgetaxisparam.clicked.connect(self.getaxis_clicked)
 		#Connect push buton get motor parameter to def
@@ -122,6 +125,13 @@ class odriveUI(QTabWidget):
 		self.pbsetpll_bandwidth.clicked.connect(self.pll_bandwidth_clicked)
 		self.pbsetpm_flux_linkage.clicked.connect(self.pm_flux_linkage_clicked)
 
+		self.debounce = QTimer()
+		self.debounce.setInterval(500)
+		self.debounce.setSingleShot(True)
+		self.debounce.timeout.connect(self.on_pushButton_2_clicked)
+		#self.line_edit.textChanged.connect(self.debounce.start)
+		self.sendbutton.clicked.connect(self.debounce.start)
+
 		#Ajout ComboBox//////////////////////////////////////////////////////////////////////////////////////
 		#Ajout ComboBox Odrv0 tab
 		self.cbenable_uart.addItem("False")
@@ -188,9 +198,21 @@ class odriveUI(QTabWidget):
 
 
 	@pyqtSlot()
-	def on_pushButton_clicked(self):
+	def pbsave_clicked(self):
 		print("save...")
 		my_drive.save_configuration()
+
+	def pbreboot_clicked(self):
+		print("reboot...")
+		my_drive.reboot()
+
+	def getall_clicked(self):
+		self.getodrv0_clicked()
+		self.getaxis_clicked()
+		self.getmotor_clicked()
+		self.getcontroller_clicked()
+		self.getencoder_clicked()
+		self.getsensorless_estimator_clicked()
 
 	#Get odrv0 param fuction
 	def getodrv0_clicked(self):
@@ -515,7 +537,6 @@ class odriveUI(QTabWidget):
 		time.sleep(0.5)
 		self.getaxis_clicked()
 	#Set button off Axis tab(config)
-	"""
 	def setenablemotorpin_clicked(self):
 		text = int(self.cbenablemotorpin.currentIndex())
 		print(text)
@@ -525,7 +546,6 @@ class odriveUI(QTabWidget):
 			my_drive.axis1.config.enable_motor_pin = text
 		time.sleep(0.5)
 		self.getaxis_clicked()
-	"""
 
 	def setenablestepdir_clicked(self):
 		text = int(self.cbenablestepdir.currentIndex())
@@ -975,6 +995,25 @@ class odriveUI(QTabWidget):
 			my_drive.axis1.sensorless_estimator.config.pm_flux_linkage = text
 		time.sleep(0.5)
 		self.getsensorless_estimator_clicked()
+
+	def on_pushButton_2_clicked(self):
+		#time.sleep(0.1)
+		try:
+			terminaison = self.cmd.text() #la terminaison je larecup ici non ?
+			print(terminaison)
+			prefix = "my_drive"
+			self.terminal.addItem((prefix)+(".")+(terminaison)+(" :"))
+			#la je prend le retour de la commande dans cmdline
+			cmdline = eval(f"{prefix}.{terminaison}") #LA CE QUE JE VOUDARAIT FAIRE C EST : garder le "mydrive." et ajouter ce que je veut a la suite avec un qlineEdit 
+			cmdline = str(cmdline)
+			#transformation en str pour le qlist widget
+			# la j'ajoute la repose dans un qlist widget
+			self.terminal.addItem(cmdline) # terminal est mon qlist widget ou je vois la réponse obtenu
+			self.terminal.scrollToBottom()
+			time.sleep(0.1)
+		except:
+			print("unknow command")
+
 
 		
 app=QApplication(sys.argv)
