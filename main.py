@@ -103,8 +103,8 @@ class odriveUI(QTabWidget):
 		self.pbsetvel_gain.clicked.connect(self.vel_gain_clicked)
 		self.pbsetvel_integrator_gain.clicked.connect(self.vel_integrator_gain_clicked)
 		self.pbsetvel_limit.clicked.connect(self.vel_limit_clicked)
-		self.pbsetenable_gain_scheduling.clicked.connect(self.enable_gain_scheduling_clicked)
-		self.pbsetgain_scheduling_width.clicked.connect(self.gain_scheduling_width_clicked)
+		#self.pbsetenable_gain_scheduling.clicked.connect(self.enable_gain_scheduling_clicked)
+		#self.pbsetgain_scheduling_width.clicked.connect(self.gain_scheduling_width_clicked)
 
 		#Connect set buton of Encoder to def
 		self.pbsetencodererror0.clicked.connect(self.encodererror0_clicked)
@@ -379,8 +379,8 @@ class odriveUI(QTabWidget):
 			self.lvel_gain.setText(str(my_drive.axis0.controller.config.vel_gain))
 			self.lvel_integrator_gain.setText(str(my_drive.axis0.controller.config.vel_integrator_gain))
 			self.lvel_limit.setText(str(my_drive.axis0.controller.config.vel_limit))
-			self.lenable_gain_scheduling.setText(str(my_drive.axis0.controller.config.enable_gain_scheduling))
-			self.lgain_scheduling_width.setText(str(my_drive.axis0.controller.config.gain_scheduling_width))
+			#self.lenable_gain_scheduling.setText(str(my_drive.axis0.controller.config.enable_gain_scheduling))
+			#self.lgain_scheduling_width.setText(str(my_drive.axis0.controller.config.gain_scheduling_width))
 
 		else :
 			self.lpos_setpoint.setText(str(my_drive.axis1.controller.pos_setpoint))
@@ -396,9 +396,9 @@ class odriveUI(QTabWidget):
 			self.lpos_gain.setText(str(my_drive.axis1.controller.config.pos_gain))
 			self.lvel_gain.setText(str(my_drive.axis1.controller.config.vel_gain))
 			self.lvel_integrator_gain.setText(str(my_drive.axis1.controller.config.vel_integrator_gain))
-			self.lvel_limit.setText(str(my_drive.axis1.controller.config.vel_limit))
-			self.lenable_gain_scheduling.setText(str(my_drive.axis1.controller.config.enable_gain_scheduling))
-			self.lgain_scheduling_width.setText(str(my_drive.axis1.controller.config.gain_scheduling_width))
+			self.lvel_limit#.setText(str(my_drive.axis1.controller.config.vel_limit))
+			#self.lenable_gain_scheduling.setText(str(my_drive.axis1.controller.config.enable_gain_scheduling))
+			#self.lgain_scheduling_width.setText(str(my_drive.axis1.controller.config.gain_scheduling_width))
 
 
 	#Get Encoder param fuction
@@ -836,6 +836,7 @@ class odriveUI(QTabWidget):
 			my_drive.axis1.controller.config.vel_limit = text
 		time.sleep(0.5)
 		self.getcontroller_clicked()
+		"""
 
 	def enable_gain_scheduling_clicked(self):
 		text = int(self.cbenable_gain_scheduling.currentIndex())
@@ -856,6 +857,7 @@ class odriveUI(QTabWidget):
 			my_drive.axis1.controller.config.gain_scheduling_width = text
 		time.sleep(0.5)
 		self.getcontroller_clicked()
+		"""
 
 	#Set button off Encoder tab
 	def encodererror0_clicked(self):
