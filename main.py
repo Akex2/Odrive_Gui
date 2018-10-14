@@ -21,9 +21,9 @@ import math
 
 
 # Find a connected ODrive (this will block until you connect one)
-print("shearch odrive")
+print("searching for an odrive")
 my_drive = odrive.find_any()  #//////////////////////////////////////////////////////////////////
-print("odrive find")
+print("odrive found")
 
 
 
@@ -478,49 +478,49 @@ class odriveUI(QTabWidget):
 	def brake_resistance_clicked(self):
 		text = float(self.lebrake_resistance.text())
 		print(text)
-		my_drive.brake_resistance = text
+		my_drive.config.brake_resistance = text
 		time.sleep(0.5)
 		self.getodrv0_clicked()
 
 	def enable_uart_clicked(self):
 		text = int(self.cbenable_uart.currentIndex())
 		print(text)
-		my_drive.enable_uart = text
+		my_drive.config.enable_uart = text
 		time.sleep(0.5)
 		self.getodrv0_clicked()
 
 	def enable_i2c_instead_of_can_clicked(self):
 		text = int(self.cbenable_i2c_instead_of_can.currentIndex())
 		print(text)
-		my_drive.enable_i2c_instead_of_can = text
+		my_drive.config.enable_i2c_instead_of_can = text
 		time.sleep(0.5)
 		self.getodrv0_clicked()
 
 	def enable_ascii_protocol_on_usb_clicked(self):
 		text = int(self.cbenable_ascii_protocol_on_usb.currentIndex())
 		print(text)
-		my_drive.enable_ascii_protocol_on_usb = text
+		my_drive.config.enable_ascii_protocol_on_usb = text
 		time.sleep(0.5)
 		self.getodrv0_clicked()
 
 	def dc_bus_undervoltage_trip_level_clicked(self):
 		text = float(self.ledc_bus_undervoltage_trip_level.text())
 		print(text)
-		my_drive.dc_bus_undervoltage_trip_level= text
+		my_drive.config.dc_bus_undervoltage_trip_level= text
 		time.sleep(0.5)
 		self.getodrv0_clicked()
 
 	def dc_bus_overvoltage_trip_level_clicked(self):
 		text = float(self.ledc_bus_overvoltage_trip_level.text())
 		print(text)
-		my_drive.dc_bus_overvoltage_trip_level= text
+		my_drive.config.dc_bus_overvoltage_trip_level= text
 		time.sleep(0.5)
 		self.getodrv0_clicked()
 
 
 	#Set button off Axis tab
 	def requested_state_clicked(self):
-		text = int(self.cbcbrequested_state.currentIndex())
+		text = int(self.cbrequested_state.currentIndex())
 		print(text)
 		if self.rbaxis.isChecked() == True:
 			my_drive.axis0.requested_state = text
@@ -588,7 +588,7 @@ class odriveUI(QTabWidget):
 		self.getaxis_clicked()
 
 	def startup_closed_loop_control_clicked(self):
-		text = int(self.pbstartup_closed_loop_control.currentIndex())
+		text = int(self.cbstartup_closed_loop_control.currentIndex())
 		print(text)
 		if self.rbaxis.isChecked() == True:
 			my_drive.axis0.config.startup_closed_loop_control = text
@@ -598,7 +598,7 @@ class odriveUI(QTabWidget):
 		self.getaxis_clicked()
 
 	def startup_sensorless_control_clicked(self):
-		text = int(self.startup_sensorless_control.currentIndex())
+		text = int(self.cbstartup_sensorless_control.currentIndex())
 		print(text)
 		if self.rbaxis.isChecked() == True:
 			my_drive.axis0.config.startup_sensorless_control = text
@@ -798,7 +798,7 @@ class odriveUI(QTabWidget):
 		self.getcontroller_clicked()
 
 	def pos_gain_clicked(self):
-		text = float(self.lepos_gain.text())
+		text = float(self.lpos_gain.text())
 		print(text)
 		if self.rbaxis.isChecked() == True:
 			my_drive.axis0.controller.config.pos_gain = text
@@ -869,7 +869,7 @@ class odriveUI(QTabWidget):
 		self.getencoder_clicked()
 	#Set button off Encoder tab(config)
 	def mode_clicked(self):
-		text = int(self.cbmode.currentIndex())
+		text = int(self.cbencoder_mode.currentIndex())
 		print(text)
 		if self.rbaxis.isChecked() == True:
 			my_drive.axis0.encoder.config.mode = text
